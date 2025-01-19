@@ -21,3 +21,9 @@ user.ifPresentOrElse ( user -> sout("username"+ user.getname,
 tasks got assigned it'll send them in Blocking queue, if any of thread got completed or waiting for other db operations 
 it'll assign some other task to this thread.
 
+9.Hashmap in Java: Stores key value pairs, initial capacity is 16, 
+10.Daemon thread: Non priority thread which used for GC, background processing task, cpu don't wait for thread to compplete task
+
+11.Anonymous and lambda class : anonymous class can implement both Abstract class and Interface where as Lambda used for functional interfaces;
+
+
