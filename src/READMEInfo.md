@@ -36,4 +36,13 @@ it'll divide heap into 5
 
 14.CompletableFuture: power full way to work with asynchronous computations in java
 
+15.Blue Green deployment : Live regions would be blue and testing will be in green after testing Traffic will be passed 
+to another instance.
+
+16.Regular expression: 
+
+17.Producer and Consumer Problem: also known as Buffered bounded problem
+Producer where is puts data/message into the buffer and consumer consumes that data
+ scenario 1. where producer is putting data/message into the buffer in 
+
 
