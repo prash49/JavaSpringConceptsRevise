@@ -25,5 +25,15 @@ it'll assign some other task to this thread.
 10.Daemon thread: Non priority thread which used for GC, background processing task, cpu don't wait for thread to compplete task
 
 11.Anonymous and lambda class : anonymous class can implement both Abstract class and Interface where as Lambda used for functional interfaces;
+12.callable vs runnable: both are Functional interfaces , both used to execute the task Asynchronously
+Runnable -> run callable -> call , 
+runnable -> does not return the a result and can't throw a checked exception
+Callable -> returns the result and can throw an checked exception
+
+13.Garbage collection: G1 Garbage collector
+G1 has 4 phases: Phase 1: MarkLive objects Phase2: Prepare for Compaction Phase3: Adjust pointers phas4: Compact heap
+it'll divide heap into 5 
+
+14.CompletableFuture: power full way to work with asynchronous computations in java
 
 

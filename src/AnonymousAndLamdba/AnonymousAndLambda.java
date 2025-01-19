@@ -13,6 +13,7 @@ public class AnonymousAndLambda {
     runnable.run();
 
     // lambda
+        //invoke  dynamic instruction is added to the class
         Runnable runnable1 = () -> {
             System.out.println("implementing runnable using Lambda expression");
         };
