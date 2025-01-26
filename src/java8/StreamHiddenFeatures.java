@@ -51,6 +51,10 @@ public class StreamHiddenFeatures {
         studentList.stream().collect(Collectors.groupingBy(Student::getDept, Collectors.counting()));
         studentList.stream().collect(Collectors.groupingBy(Student::getDept, Collectors.counting())).entrySet().stream().max(Map.Entry.comparingByValue());
         Map<String, Double> collect = studentList.stream().collect(Collectors.groupingBy(Student::getGender, Collectors.averagingInt(Student::getRank)));
+        Student student = new Student(1, "male", "prashanth", 100, "ECE", "Karnataka");
+        Optional<String> gender = Optional.ofNullable(student.getGender());
+        // i'll go for Optinal.ofNullable when i know there will be null and .of when i'm sure i'll get non nullable
+        System.out.println(gender.orElse("Null value"));
 
     }
     //
