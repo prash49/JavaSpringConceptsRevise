@@ -1,4 +1,4 @@
-package Diamond;
+package DeadLock;
 
 public class DeadLock {
     private static final Object account =  new Object();
