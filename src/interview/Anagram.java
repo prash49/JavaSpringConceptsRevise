@@ -3,10 +3,8 @@ package interview;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
-public class demo {
+public class Anagram {
     public static void main(String[] args) {
 
         /*two strings are considered anagrams if they have the same characters with the same frequency,
@@ -37,6 +35,14 @@ public class demo {
                 return true;
             }
         }
+// how to define a
+        Set<Map.Entry<Character, Integer>> entries1 = str1Map.entrySet();
+        for (Map.Entry<Character, Integer> characterIntegerEntry : str1Map.entrySet()) {
+            if(str1Map.get(characterIntegerEntry.getKey()) == str2Map.get(characterIntegerEntry.getKey())){
+                return true;
+            }
+        }
+
         return false;
     }
 
