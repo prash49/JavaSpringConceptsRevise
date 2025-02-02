@@ -2,8 +2,7 @@ package LogicBuildingPrograms;
 
 public class MaxSubArraySum {
     public static void main(String[] args) {
-
-    }
+        System.out.println(findMaxSum());    }
 
     static int findMaxSum() {
         int[] nums = {10, 14, 152, 85, 0, 4, 52};

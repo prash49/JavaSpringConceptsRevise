@@ -3,6 +3,7 @@ package LogicBuildingPrograms;
 public class ReverseAString {
     public static void main(String[] args) {
         System.out.println("reversedString "+ reverseAString());
+        System.out.println("revString "+ revString("Prash"));
     }
     static String reverseAString(){
         String name = "Prashanth";
@@ -24,6 +25,16 @@ public class ReverseAString {
 
         System.out.println("left in swap :"+ arr[left]);
         System.out.println("right in swap :"+ arr[right]);
+    }
+
+    public static String revString(String name){
+        char[] charArray = name.toCharArray();
+        for (int i = 0, j = charArray.length - 1; i < j; i ++ , j--) {
+            char temp = charArray[i];
+            charArray[i] = charArray[j];
+            charArray[j] = temp;
+        }
+        return new String(charArray);
     }
 
 
