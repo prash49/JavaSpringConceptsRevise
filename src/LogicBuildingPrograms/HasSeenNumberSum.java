@@ -21,7 +21,7 @@ public class HasSeenNumberSum {
             if (seen.containsKey(target - num)) {
                 return true;
             }
-            seen.put(num, num);
+            seen.put(target - num, num);
         }
         return false;
     }
