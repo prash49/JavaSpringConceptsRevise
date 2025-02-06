@@ -1,11 +1,11 @@
 package LogicBuildingPrograms;
 
-public class Palindrome {
+public class Fibonacci {
     public static void main(String[] args) {
-        System.out.println(palindrome(4));
+        System.out.println(finbonacci(4));
     }
 
-    static int palindrome(int n) {
+    static int finbonacci(int n) {
         int mul = 1;
         for (int i = n; i >= 1; i--) {
             System.out.println(i);
