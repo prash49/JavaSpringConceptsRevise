@@ -1,12 +1,14 @@
 package LogicBuildingPrograms;
 
 import java.util.Arrays;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Anangram {
     // means a if two string have same chars
     // ex: NOW and WON or ONE or NEO
     public static void main(String[] args) {
-        String s1 = "OnNE";
+        String s1 = "ONE";
         String s2 = "NEO";
 
         if (s1.length() != s2.length()) {
