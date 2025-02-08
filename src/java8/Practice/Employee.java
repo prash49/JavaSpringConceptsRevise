@@ -1,11 +1,10 @@
 package java8.Practice;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 class Employee {
     int id;
@@ -96,5 +95,45 @@ class Employee {
         employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.counting()));
         //61) Given a list of employees, find out the number of male and female employees in the organization?
         employees.stream().collect(Collectors.groupingBy(Employee::getGender, Collectors.counting()));
+
+        // Example of flatmap
+        // employees.stream().flatMap( i -> i.getLocations().stream()).collect.
+
+        List<String> listOfStrings = Arrays.asList("Facebook", "Twitter", "YouTube", "WhatsApp", "LinkedIn");
+        //6) Given a list of strings, join the strings with ‘[‘ as prefix, ‘]’ as suffix and ‘,’ as delimiter?
+        listOfStrings.stream().collect(Collectors.joining(",", "[", "]"));
+        List<Integer> listOfIntegers = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
+//7) From the given list of integers, print the numbers which are multiples of 5?
+        listOfIntegers.stream().filter(i -> i % 5 ==0).forEach(System.out::println);
+        listOfIntegers.stream().min(Comparator.naturalOrder()).get();
+        listOfIntegers.stream().max(Comparator.naturalOrder()).get();
+        int[] a = new int[] {4, 2, 7, 1};
+
+        int[] b = new int[] {8, 3, 9, 5};
+        //9) How do you merge two unsorted arrays into single sorted array using Java 8 streams?
+        int[] c = IntStream.concat(Arrays.stream(a), Arrays.stream(b)).toArray();
+        // distince
+        int[] d = IntStream.concat(Arrays.stream(a), Arrays.stream(b)).distinct().toArray();
+
+        List<Integer> intList = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
+        intList.stream().sorted().limit(3);
+        String s1 = "RaceCar";
+        String s2 = "CarRace";
+
+        s1 = Stream.of(s1.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
+
+        s2 = Stream.of(s2.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
+
+        if (s1.equals(s2))
+        {
+            System.out.println("Two strings are anagrams");
+        }
+
+
+
+
+
+
+
     }
 }
