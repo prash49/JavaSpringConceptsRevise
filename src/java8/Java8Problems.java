@@ -43,7 +43,7 @@ public class Java8Problems {
         inputString.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet()
                 .stream()
-                .filter(entry ->  entry.getValue() > 1)
+                .filter(entry -> entry.getValue() > 1)
                 .map(entry -> entry.getValue())
                 .findFirst()
                 .get();
@@ -68,10 +68,45 @@ public class Java8Problems {
         strings.stream().sorted(Comparator.comparing(String::length));
         //14) Find second largest number in an integer array?
 
-            List<Integer> listOfIntegers = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
-            listOfIntegers.stream().sorted(Comparator.reverseOrder()).skip(1);
+        List<Integer> listOfIntegers = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
+        listOfIntegers.stream().sorted(Comparator.reverseOrder()).skip(1);
 
+        String string = "the quick brown fox jumps over the lazy dog the fox is quick";
+        String[] split = string.split("\\s+");
+        Map<String, Long> mapValues = Arrays.asList(split).stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        for (Map.Entry<String, Long> entry : mapValues.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        List<List<Integer>> nestedLists = Arrays.asList(
+                Arrays.asList(3, 5, 2),
+                Arrays.asList(1, 2, 3),
+                Arrays.asList(4, 5));
 
+        List<Integer> flat = nestedLists.stream().flatMap(List::stream).collect(Collectors.toList());
+        flat.stream().forEach(System.out::print);
+
+        List<String> list = Arrays.asList("apple", "banana", "apple","orange");
+        String reducedString = list.stream().distinct().reduce("", (s1, s2) -> s1 + " " + s2);
+        System.out.println("reducedString :: {}"+ reducedString);
+
+        List<Institute> instituteList = new ArrayList<>();
+
+        instituteList.add(new Institute("IIM", Arrays.asList("Bangalore", "Ahmedabad", "Kozhikode", "Lucknow")));
+        instituteList.add(new Institute("IIT", Arrays.asList("Delhi", "Mumbai", "Kharagpur")));
+        instituteList.add(new Institute("NIFT", Arrays.asList("Hyderabad", "Mumbai", "Patna", "Bangalore")));
+
+        //Java 8 Map() : Get names of all institutes
+
+        List<String> namesOfInstitutes = instituteList.stream().map(Institute::getName).collect(Collectors.toList());
+
+        System.out.println(namesOfInstitutes);
+
+        //Java 8 FlatMap() : Get unique locations of all institutes
+
+        // flat map takes Stream<Stream<T>> tranforms to Stream<T>
+        Set<String> locationsOfInstitutes = instituteList.stream().flatMap(institute -> institute.getLocations().stream()).collect(Collectors.toSet());
+
+        System.out.println(locationsOfInstitutes);
     }
 
 
