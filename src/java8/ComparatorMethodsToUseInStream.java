@@ -60,6 +60,11 @@ public class ComparatorMethodsToUseInStream {
         map.entrySet().stream().sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1, LinkedHashMap::new));
 
+        // find sum of Values in Map
+        int sum = map.entrySet().stream().mapToInt(e -> e.getValue()).sum();
+        System.out.println("sum"+ sum);
+      int sum2 =  map.values().stream().mapToInt(Integer::intValue).sum();
+        System.out.println("sum 2 :"+sum2);
     }
 
 
