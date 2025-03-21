@@ -104,12 +104,12 @@ class Employee {
         listOfStrings.stream().collect(Collectors.joining(",", "[", "]"));
         List<Integer> listOfIntegers = Arrays.asList(45, 12, 56, 15, 24, 75, 31, 89);
 //7) From the given list of integers, print the numbers which are multiples of 5?
-        listOfIntegers.stream().filter(i -> i % 5 ==0).forEach(System.out::println);
+        listOfIntegers.stream().filter(i -> i % 5 == 0).forEach(System.out::println);
         listOfIntegers.stream().min(Comparator.naturalOrder()).get();
         listOfIntegers.stream().max(Comparator.naturalOrder()).get();
-        int[] a = new int[] {4, 2, 7, 1};
+        int[] a = new int[]{4, 2, 7, 1};
 
-        int[] b = new int[] {8, 3, 9, 5};
+        int[] b = new int[]{8, 3, 9, 5};
         //9) How do you merge two unsorted arrays into single sorted array using Java 8 streams?
         int[] c = IntStream.concat(Arrays.stream(a), Arrays.stream(b)).toArray();
         // distince
@@ -124,16 +124,26 @@ class Employee {
 
         s2 = Stream.of(s2.split("")).map(String::toUpperCase).sorted().collect(Collectors.joining());
 
-        if (s1.equals(s2))
-        {
+        if (s1.equals(s2)) {
             System.out.println("Two strings are anagrams");
         }
 
+        LinkedHashMap<String, Employee> employeeMap = employees.stream().collect(Collectors.toMap(e -> e.getName(), e -> e, (e1, e2) -> e1, LinkedHashMap::new));
+
+        System.out.println("to Map");
+        for (Map.Entry entry : employeeMap.entrySet()) {
+            System.out.println("key" + entry.getKey() + " " + entry.getValue());
+        }
 
 
+        //Write a java 8 program to take input as a list of Employee and return a Map of Employee and List of Employee grouped by department?
+        Map<String, List<Employee>> employeeDepartmentGroup = employees.stream().collect(Collectors.groupingBy(Employee::getDepartment));
+       /* for (Map.Entry entry : employeeDepartmentGroup.entrySet()) {
+           entry.getKey() + entry.getValue()
+        }*/
 
-
-
-
-    }
+        employeeDepartmentGroup.forEach((department, empList) -> {
+            System.out.println(department + ": " + empList);
+        });
+}
 }
