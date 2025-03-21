@@ -145,5 +145,31 @@ class Employee {
         employeeDepartmentGroup.forEach((department, empList) -> {
             System.out.println(department + ": " + empList);
         });
-}
+
+        Map<String, Optional<Employee>> secondMaxSalaryByDepartment = employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDepartment,
+                        Collectors.mapping(
+                                e -> e,
+                                Collectors.toList()
+                        )
+                ))
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> {
+                            List<Employee> empList = entry.getValue();
+                            return empList.stream()
+                                    .sorted(Comparator.comparingDouble(Employee::getSalary).reversed())
+                                    .distinct()
+                                    .skip(1) // Skip the first max salary
+                                    .findFirst(); // Take the second max salary
+                        }
+                ));
+
+        // Printing the result
+        secondMaxSalaryByDepartment.forEach((department, emp) -> {
+            System.out.println(department + ": " + emp.orElse(null));
+        });
+    }
 }
