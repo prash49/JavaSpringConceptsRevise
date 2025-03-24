@@ -1,5 +1,7 @@
 package java8;
 
+import java.util.Optional;
+
 public class Employee{
     String name;
     int salary;
@@ -14,6 +16,6 @@ public class Employee{
     }
 
     public String getName() {
-        return name;
+        return Optional.of(name).orElse("DefaultValue");
     }
 }
