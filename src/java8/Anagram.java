@@ -1,4 +1,4 @@
-package interview;
+package java8;
 
 import java.util.HashMap;
 import java.util.Map;
