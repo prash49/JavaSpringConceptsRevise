@@ -107,6 +107,29 @@ public class Java8Problems {
         Set<String> locationsOfInstitutes = instituteList.stream().flatMap(institute -> institute.getLocations().stream()).collect(Collectors.toSet());
 
         System.out.println(locationsOfInstitutes);
+        System.out.println("boolean: "+ Stream.of(123,56,7,8).allMatch(n -> n == 123));
+        System.out.println("boolean: "+ Stream.of(123,56,7,8).anyMatch(n -> n == 123));
+
+        List<List<String>> names = List.of(
+                List.of("Alice", "Bob"),
+                List.of("Charlie", "David"),
+                List.of("Eve", "Frank")
+        );
+
+        names.stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
+
+        Stream<String> words = Stream.of("hello", "world");
+        words.flatMap(word -> Stream.of(word.split("")))
+                .forEach(System.out::println);
+
+        List<String> list11 = List.of("apple", "banana");
+        List<String> list12 = List.of("cherry", "date");
+
+        Stream<List<String>> lists = Stream.of(list11, list12);
+        lists.flatMap(List::stream)
+                .forEach(System.out::println);
     }
 
 
