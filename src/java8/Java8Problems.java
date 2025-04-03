@@ -130,6 +130,19 @@ public class Java8Problems {
         Stream<List<String>> lists = Stream.of(list11, list12);
         lists.flatMap(List::stream)
                 .forEach(System.out::println);
+
+        System.out.println("-----------------------------------------------------");
+        // Convert a List into a Map where key and Value are number itself
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+        Map<Integer, Integer> intMap = integers.stream().collect(Collectors.toMap(Function.identity(), Function.identity()));
+        Map<Integer, Integer> intMap2 = integers.stream().collect(Collectors.toMap(Function.identity(), Function.identity(), (e1, e2) -> e1, LinkedHashMap::new));
+        intMap.keySet().forEach(System.out::println);
+        System.out.println("=======================");
+        intMap.values().forEach(System.out::print);
+        System.out.println("------------------------------");
+       int sum=  integers.stream().mapToInt(e ->  e).sum();
+        System.out.println("sum :"+ sum);
+
     }
 
 
