@@ -85,9 +85,9 @@ public class Java8Problems {
         List<Integer> flat = nestedLists.stream().flatMap(List::stream).collect(Collectors.toList());
         flat.stream().forEach(System.out::print);
 
-        List<String> list = Arrays.asList("apple", "banana", "apple","orange");
+        List<String> list = Arrays.asList("apple", "banana", "apple", "orange");
         String reducedString = list.stream().distinct().reduce("", (s1, s2) -> s1 + " " + s2);
-        System.out.println("reducedString :: {}"+ reducedString);
+        System.out.println("reducedString :: {}" + reducedString);
 
         List<Institute> instituteList = new ArrayList<>();
 
@@ -107,8 +107,8 @@ public class Java8Problems {
         Set<String> locationsOfInstitutes = instituteList.stream().flatMap(institute -> institute.getLocations().stream()).collect(Collectors.toSet());
 
         System.out.println(locationsOfInstitutes);
-        System.out.println("boolean: "+ Stream.of(123,56,7,8).allMatch(n -> n == 123));
-        System.out.println("boolean: "+ Stream.of(123,56,7,8).anyMatch(n -> n == 123));
+        System.out.println("boolean: " + Stream.of(123, 56, 7, 8).allMatch(n -> n == 123));
+        System.out.println("boolean: " + Stream.of(123, 56, 7, 8).anyMatch(n -> n == 123));
 
         List<List<String>> names = List.of(
                 List.of("Alice", "Bob"),
@@ -140,8 +140,14 @@ public class Java8Problems {
         System.out.println("=======================");
         intMap.values().forEach(System.out::print);
         System.out.println("------------------------------");
-       int sum=  integers.stream().mapToInt(e ->  e).sum();
-        System.out.println("sum :"+ sum);
+        int sum = integers.stream().mapToInt(e -> e).sum();
+        System.out.println("sum :" + sum);
+        Arrays.asList(1, 2, 3).stream().filter(n -> n > 2).forEach(System.out::print);
+
+        // Revising
+//         Problem 1: Top 3 highest salaried employees
+//         Given: A list of Employee objects
+//         Task: Get names of top 3 highest salaried employees.
 
     }
 
