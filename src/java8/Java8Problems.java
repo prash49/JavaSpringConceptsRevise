@@ -144,10 +144,98 @@ public class Java8Problems {
         System.out.println("sum :" + sum);
         Arrays.asList(1, 2, 3).stream().filter(n -> n > 2).forEach(System.out::print);
 
+        List<Employee> employees = Arrays.asList(
+                new Employee("Prashanth", 50000),
+                new Employee("Navin", 70000),
+                new Employee("Uday", 60000)
+        );
         // Revising
 //         Problem 1: Top 3 highest salaried employees
 //         Given: A list of Employee objects
 //         Task: Get names of top 3 highest salaried employees.
+
+        employees.stream().sorted(Comparator.comparingInt(Employee::getSalary).reversed()).limit(3).map(e -> e.getName()).collect(Collectors.toList()).forEach(System.out::print);
+
+        /*Group employees by department and list names
+Task: Group by department and return a Map<String, List<String>>
+(Department name → List of Employee names)*/
+        employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.mapping(Employee::getName, Collectors.toList())));
+
+        /*Return a Map<String, Long> where key is department and value is employee count*/
+        employees.stream().collect(Collectors.groupingBy(Employee::getSalary,Collectors.counting()));
+        /*Task: Return a Map<String, Double> of department to average salary.*/
+        employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.averagingInt(Employee::getSalary)));
+        /*Task: Return list of duplicate elements (keep only duplicates)*/
+        ArrayList<Integer> arrayList = (ArrayList<Integer>) Arrays.asList(1,3,2,4,4,5,1);
+        arrayList.stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting())).entrySet().stream().filter(e -> e.getValue() > 1).map(e -> e.getKey()).collect(Collectors.toList());
+        /* Find the employee with the second highest salary*/
+        employees.stream().sorted(Comparator.comparingInt(Employee::getSalary).reversed()).skip(1).findFirst();
+        /*join employee names department-wise*/
+        employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.mapping(Employee::getName, Collectors.joining(","))));
+        /* Partition employees by salary > 50k*/
+        employees.stream().collect(Collectors.partitioningBy(e -> e.salary > 50000));
+        /*Count character occurrences in a string*/
+        String str1 =  "Prashanth";
+        str1.chars()
+                .mapToObj(c -> (char) c)
+                .filter(c -> c != ' ')
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        /* Most frequent element in list of integers*/
+        arrayList.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+
+        str1.chars().mapToObj(c -> (char) c).filter(c -> c != ' ').collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        arrayList.stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey).orElse(null);
+
+        /*🔁 1. Get the second lowest salaried employee's name
+         */
+        employees.stream().min(Comparator.comparing(Employee::getSalary)).map(Employee::getName).orElse("notFound");
+        /* Find the department with the highest total salary*/
+        employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.summingInt(Employee::getSalary))).entrySet()
+                .stream().max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey);
+        /* Sort the employees by department name and then by salary descending*/
+        employees.stream().sorted(Comparator.comparing(Employee::getName).thenComparingInt(Employee::getSalary).reversed()).collect(Collectors.toList());
+        /*🔠 4. Find frequency of characters (excluding spaces) in a String*/
+        String s = "hello world";
+        s.chars().mapToObj(c -> (char) c).filter(c -> c != ' ').collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        /*🔣 5. Find the first non-repeating character in a string
+         */
+        String string1 = "aabbccdee";
+        string1.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new,Collectors.counting()))
+                .entrySet().stream()
+                .filter(e -> e.getValue() > 1)
+                .map(Map.Entry::getKey)
+                .findFirst();
+        /*Convert a List<Employee> to Map<name, salary>*/
+        employees.stream().collect(Collectors.toMap(Employee::getName, Employee::getSalary));
+        // TODO Trickey questions
+        /*Find all employees whose name starts and ends with the same character (case-insensitive)*/
+
+        employees.stream().filter(e -> {
+            String name = e.getName().toLowerCase();
+            return name.charAt(0) == name.charAt(name.length() -1 );
+        }).collect(Collectors.toList());
+        /*💥 8. Remove duplicate Strings from a list ignoring case*/
+        List<String> strings1 = Arrays.asList("Java", "java", "Python", "python");
+        strings1.stream().map(e -> e.toLowerCase()).distinct().collect(Collectors.toList());
+        /*Capitalize first letter of each name in a list*/
+        strings1.stream().map(name -> name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase())
+                .collect(Collectors.toSet());
+        //
+        Map<Boolean, Long> result = employees.stream()
+                .collect(Collectors.partitioningBy(
+                        e -> e.getSalary() > 50000,
+                        Collectors.counting()
+                ));
+
 
     }
 
