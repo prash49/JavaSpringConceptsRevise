@@ -250,6 +250,15 @@ Task: Group by department and return a Map<String, List<String>>
         List<Employee> distinctByName = employees.stream()
                 .filter(distinctByKey(Employee::getName))
                 .collect(Collectors.toList());
+
+        // use flatmap
+        List<List<String>> nested = Arrays.asList(
+                Arrays.asList("a", "b"),
+                Arrays.asList("c", "d"),
+                Arrays.asList("e", "f")
+        );
+        List<String> flatMapEx= nested.stream().flatMap(l -> l.stream()).collect(Collectors.toList());
+        List<String> flatEx = nested.stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
