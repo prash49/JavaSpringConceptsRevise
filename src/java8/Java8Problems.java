@@ -6,7 +6,9 @@ import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -242,6 +244,16 @@ Task: Group by department and return a Map<String, List<String>>
         // what i need to get get employee objects only based on name
         List<Employee> employeeDistinctByName =employees.stream().collect(Collectors.toMap(Employee::getName,Function.identity(), (exiting,replacement) -> exiting))
                 .values().stream().collect(Collectors.toList());
+
+
+
+        List<Employee> distinctByName = employees.stream()
+                .filter(distinctByKey(Employee::getName))
+                .collect(Collectors.toList());
+    }
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Set<Object> seen = ConcurrentHashMap.newKeySet();
+        return t -> seen.add(keyExtractor.apply(t));
     }
 
 
