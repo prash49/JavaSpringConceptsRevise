@@ -237,6 +237,11 @@ Task: Group by department and return a Map<String, List<String>>
                 ));
 
 
+        // List of Employee are there i need to only distinct items into a list
+        List<Employee> employeesDistinct = employees.stream().distinct().collect(Collectors.toList());
+        // what i need to get get employee objects only based on name
+        List<Employee> employeeDistinctByName =employees.stream().collect(Collectors.toMap(Employee::getName,Function.identity(), (exiting,replacement) -> exiting))
+                .values().stream().collect(Collectors.toList());
     }
 
 
