@@ -259,6 +259,16 @@ Task: Group by department and return a Map<String, List<String>>
         );
         List<String> flatMapEx= nested.stream().flatMap(l -> l.stream()).collect(Collectors.toList());
         List<String> flatEx = nested.stream().flatMap(Collection::stream).collect(Collectors.toList());
+
+        int[] ints = {5, 3, 8, 3, 2, 1, 8, 7, 2};
+        HashSet<Integer> set = new HashSet<>();
+        OptionalInt first = Arrays.stream(ints)
+                .filter(num -> !set.add(num))
+                .skip(1)
+                .findFirst();
+        first.ifPresentOrElse( i -> System.out.println(i ), () -> {
+            System.out.println("not present");
+        });
     }
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
