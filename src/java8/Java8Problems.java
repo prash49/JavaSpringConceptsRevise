@@ -269,6 +269,27 @@ Task: Group by department and return a Map<String, List<String>>
         first.ifPresentOrElse( i -> System.out.println(i ), () -> {
             System.out.println("not present");
         });
+        // Asked in Infosys square even number and find the sum of them
+        List<Integer> numsList = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
+        numsList.stream()
+                .filter( num -> num % 2 == 0)
+                .map(num  -> num  * num)
+                .reduce(0, (num1, num2) -> num1 + num2);
+
+        numsList.stream()
+                .filter(num -> num % 2 == 0)
+                .mapToInt(num  -> num * num)
+                .sum();
+
+        // Capegemini
+        List<Integer> salaries = Arrays.asList(5000, 8000, 6000, 8000, 9000, 9000, 10000);
+//        How would you leverage Java 8 Streams to compute the second highest distinct salary?
+        Optional<Integer> secondHighest = salaries.stream().distinct().sorted(Collections.reverseOrder()).skip(1).findFirst();
+        secondHighest.ifPresentOrElse( (i) -> { System.out.println("second highest :"+ i);} , () -> {
+            System.out.println("not present");
+
+        });
+
     }
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Set<Object> seen = ConcurrentHashMap.newKeySet();
