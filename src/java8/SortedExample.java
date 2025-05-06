@@ -1,9 +1,7 @@
 package java8;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class SortedExample {
@@ -33,5 +31,18 @@ public class SortedExample {
         // above method sorts based on Alphabetical order because String has implementation for Comparable
         System.out.println("now Sort based on Length ");
         stringList.stream().sorted(Comparator.comparing(String::length)).forEach(System.out::print);
+
+        // calcualte the Average of Integers
+        List<Integer> numList = new ArrayList<>(Arrays.asList(1,2,3,4,5,67,8,9,05,9,5));
+        numList.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0.0);
+        Integer sum = numList.stream().collect(Collectors.summingInt(Integer::intValue));
+        IntSummaryStatistics intSummary = numList.stream().collect(Collectors.summarizingInt(Integer::intValue));
+        List<String> strings = new ArrayList<>(Arrays.asList("prashant", "navin"));
+        System.out.println(  strings.stream()
+               .map(String::toUpperCase)
+               .collect(Collectors.joining(",")));
     }
 }
