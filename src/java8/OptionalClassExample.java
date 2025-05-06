@@ -7,6 +7,11 @@ public class OptionalClassExample {
         Optional<String> nameOptional = Optional.ofNullable("Prashanth");
         String name = nameOptional.get(); // it might throw null pointer exception
         name = nameOptional.orElse("Praveen"); // give default value.
+        nameOptional.ifPresentOrElse( str -> {
+            System.out.println("name"+ str);
+        }, () -> {
+            System.out.println("name not present");
+        });
         System.out.println(name);
         name = nameOptional.orElseThrow(); // thow custom exceptions
         Employee employee = new Employee("Prashanth", 250000);

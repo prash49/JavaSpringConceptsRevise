@@ -1,6 +1,7 @@
 package java8;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class SortedExample {
         // in comparator there many methods are there for we use Reverse order
         System.out.println();
         list.stream().sorted(Comparator.reverseOrder()).forEach(System.out::print);
+        list.stream().sorted(Collections.reverseOrder()).forEach(System.out::print);
 
         //2.Custom Sorting in sorted
         // this usually combined with Objects Variable ex: Employee list sort based on Salary
