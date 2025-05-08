@@ -36,15 +36,40 @@ public class Java8StreamTricky {
         System.out.println(result2);
 
         // Write a Stream to collect names with avg salary
-        employees.stream()
+        Map<String, Double> averageEmpList = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getName, Collectors.averagingInt(Employee::getSalary)));
         // write a Stream to collect max salary by name
-        employees.stream()
+        Map<String, Optional<Employee>> maxSalByName = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getName, Collectors.maxBy(Comparator.comparing(Employee::getSalary))));
 
         // in groupping by it requires function so you got with Employee::getName getName is function
         // another parameter it can take is Collector hence i need to provide Collector
         //here i need to define on what basis it needs to collect i need to collect based on Max, min ,couting, averaging , summingint
+
+        /*Advanced follow-up: Modify it to get just the Employee name, not the Optional<Employee>:*/
+        employees.stream()
+                .collect(Collectors.groupingBy(Employee::getName,
+                        Collectors.collectingAndThen(Collectors.maxBy(Comparator.comparing(Employee::getSalary)), optionalEmployee -> optionalEmployee.map(Employee::getName).orElse(""))));
+
+        // how you'll debug in streams
+        /* todo : Peek is used to debug*/
+        employees.stream()
+                .filter(e -> e.getName().startsWith("P"))
+                .peek(p -> System.out.println("peeked:"+p)) // peek take consumer which takes ininput and utlizies using accept
+                .collect(Collectors.toList());
+
+        // How to use Flatmap
+        /*
+        * ex: we have list of orders in each order it can have multiple products i need to get all products in all orders
+        * todo then i'll use flatMap
+        * how i'll use :  flatMap()inside this i'll get product the list of orders i need to flatten it
+        * flatMap( product -> product.getOrders.stream())
+        * now i need to use map to transform that stream to string hence i wrote on method
+        *     .map(OrderItem::getProductName) then collect distinct
+        *
+         * */
+
+
     }
    public static List<Employee> getEmployees(){
         List<Employee> employees = new ArrayList<>();
