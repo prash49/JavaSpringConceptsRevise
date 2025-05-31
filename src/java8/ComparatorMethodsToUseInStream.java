@@ -60,17 +60,17 @@ public class ComparatorMethodsToUseInStream {
         // i need to sort it based on keys
         // in map we make use of Map.Entry.comparingByKey and ComparingByValue
         map.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1,LinkedHashMap::new));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
 
         map.entrySet().stream().sorted(Map.Entry.comparingByValue())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1,e2) -> e1, LinkedHashMap::new));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 
         // find sum of Values in Map
         int sum = map.entrySet().stream().mapToInt(e -> e.getValue()).sum();
-        System.out.println("sum"+ sum);
-      int sum2 =  map.values().stream().mapToInt(Integer::intValue).sum();
-        System.out.println("sum 2 :"+sum2);
+        System.out.println("sum" + sum);
+        int sum2 = map.values().stream().mapToInt(Integer::intValue).sum();
+        System.out.println("sum 2 :" + sum2);
 
         /*  Problem 1: Top 3 highest salaried employees
 Given: A list of Employee objects
@@ -84,20 +84,20 @@ Task: Group by department and return a Map<String, List<String>>
         employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.mapping(Employee::getName, Collectors.toList())));
 
         /*Return a Map<String, Long> where key is department and value is employee count*/
-        employees.stream().collect(Collectors.groupingBy(Employee::getSalary,Collectors.counting()));
+        employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.counting()));
         /*Task: Return a Map<String, Double> of department to average salary.*/
         employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.averagingInt(Employee::getSalary)));
         /*Task: Return list of duplicate elements (keep only duplicates)*/
-        ArrayList<Integer> arrayList = (ArrayList<Integer>) Arrays.asList(1,3,2,4,4,5,1);
-        arrayList.stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting())).entrySet().stream().filter(e -> e.getValue() > 1).map(e -> e.getKey()).collect(Collectors.toList());
+        ArrayList<Integer> arrayList = (ArrayList<Integer>) Arrays.asList(1, 3, 2, 4, 4, 5, 1);
+        arrayList.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting())).entrySet().stream().filter(e -> e.getValue() > 1).map(e -> e.getKey()).collect(Collectors.toList());
         /* Find the employee with the second highest salary*/
         employees.stream().sorted(Comparator.comparingInt(Employee::getSalary).reversed()).skip(1).findFirst();
         /*join employee names department-wise*/
         employees.stream().collect(Collectors.groupingBy(Employee::getSalary, Collectors.mapping(Employee::getName, Collectors.joining(","))));
-/* Partition employees by salary > 50k*/
+        /* Partition employees by salary > 50k*/
         employees.stream().collect(Collectors.partitioningBy(e -> e.salary > 50000));
         /*Count character occurrences in a string*/
-        String str =  "Prashanth";
+        String str = "Prashanth";
         str.chars()
                 .mapToObj(c -> (char) c)
                 .filter(c -> c != ' ')
@@ -111,7 +111,7 @@ Task: Group by department and return a Map<String, List<String>>
                 .orElse(null);
 
         str.chars().mapToObj(c -> (char) c).filter(c -> c != ' ').collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-        arrayList.stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()))
+        arrayList.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).orElse(null);
@@ -127,11 +127,11 @@ Task: Group by department and return a Map<String, List<String>>
         employees.stream().sorted(Comparator.comparing(Employee::getName).thenComparingInt(Employee::getSalary).reversed()).collect(Collectors.toList());
         /*🔠 4. Find frequency of characters (excluding spaces) in a String*/
         String s = "hello world";
-        s.chars().mapToObj(c -> (char) c).filter(c -> c != ' ').collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        s.chars().mapToObj(c -> (char) c).filter(c -> c != ' ').collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         /*🔣 5. Find the first non-repeating character in a string
          */
         String string = "aabbccdee";
-        string.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(),LinkedHashMap::new,Collectors.counting()))
+        string.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream()
                 .filter(e -> e.getValue() > 1)
                 .map(Map.Entry::getKey)
@@ -143,13 +143,13 @@ Task: Group by department and return a Map<String, List<String>>
 
         employees.stream().filter(e -> {
             String name = e.getName().toLowerCase();
-            return name.charAt(0) == name.charAt(name.length() -1 );
+            return name.charAt(0) == name.charAt(name.length() - 1);
         }).collect(Collectors.toList());
-                /*💥 8. Remove duplicate Strings from a list ignoring case*/
+        /*💥 8. Remove duplicate Strings from a list ignoring case*/
         List<String> strings = Arrays.asList("Java", "java", "Python", "python");
         strings.stream().map(e -> e.toLowerCase()).distinct().collect(Collectors.toList());
         /*Capitalize first letter of each name in a list*/
-        strings.stream().map(name -> name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase())
+        strings.stream().map(name -> name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase())
                 .collect(Collectors.toSet());
         //
         Map<Boolean, Long> result = employees.stream()
@@ -159,15 +159,14 @@ Task: Group by department and return a Map<String, List<String>>
                 ));
 
 
-
         // revise
         /*
-        * sort list of Objects
-        * Custom sorting criteria
-        * Multiple sorting criteria
-        * case insensitive sorting
-        * reverse order
-        * */
+         * sort list of Objects
+         * Custom sorting criteria
+         * Multiple sorting criteria
+         * case insensitive sorting
+         * reverse order
+         * */
         List<String> fruits = Arrays.asList("apple", "cherry", "banana", "pine apple", "kiwi");
         /*1. Sort the string based on their length in asending order */
         fruits.stream().sorted(Comparator.comparingInt(String::length));
@@ -175,7 +174,7 @@ Task: Group by department and return a Map<String, List<String>>
         Collections.sort(fruits, Comparator.comparingInt(String::length));
 
         /*Sort the interer list in descending order*/
-        List<Integer> nums = Arrays.asList(3,12,5,33);
+        List<Integer> nums = Arrays.asList(3, 12, 5, 33);
         nums.stream().sorted(Collections.reverseOrder());
         nums.sort(Comparator.reverseOrder());
 
@@ -185,9 +184,9 @@ Task: Group by department and return a Map<String, List<String>>
                 new Employee("Uday", 60000)
         );
         /*
-        * sort the list of employess on their based on their salary in asending order
-        * */
-        employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).thenComparing(emp -> emp.getName().length() )).collect(Collectors.toList());
+         * sort the list of employess on their based on their salary in asending order
+         * */
+        employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).thenComparing(emp -> emp.getName().length())).collect(Collectors.toList());
 
         /*sort the list of string based on index of the first occurance of "e" */
         fruits.stream().sorted(Comparator.comparingInt(e -> e.charAt('c')));
@@ -197,14 +196,12 @@ Task: Group by department and return a Map<String, List<String>>
         fruits.sort(comparator);
 
         /*Sorting List of Dates in asending order using comparing()*/
-        List<LocalDate> dates =  Arrays.asList(LocalDate.of(2025,02,23),
+        List<LocalDate> dates = Arrays.asList(LocalDate.of(2025, 02, 23),
                 LocalDate.of(2024, 02, 23),
-                LocalDate.of(2023,02,23));
+                LocalDate.of(2023, 02, 23));
         dates.stream().sorted(Comparator.comparing(Function.identity()));
 
-        }
     }
-
-
 }
+
 
