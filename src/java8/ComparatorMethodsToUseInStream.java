@@ -1,7 +1,11 @@
 package java8;
 
+import javax.security.auth.callback.CallbackHandler;
+import java.time.LocalDate;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -155,6 +159,50 @@ Task: Group by department and return a Map<String, List<String>>
                 ));
 
 
+
+        // revise
+        /*
+        * sort list of Objects
+        * Custom sorting criteria
+        * Multiple sorting criteria
+        * case insensitive sorting
+        * reverse order
+        * */
+        List<String> fruits = Arrays.asList("apple", "cherry", "banana", "pine apple", "kiwi");
+        /*1. Sort the string based on their length in asending order */
+        fruits.stream().sorted(Comparator.comparingInt(String::length));
+        fruits.sort(Comparator.comparing(String::length));
+        Collections.sort(fruits, Comparator.comparingInt(String::length));
+
+        /*Sort the interer list in descending order*/
+        List<Integer> nums = Arrays.asList(3,12,5,33);
+        nums.stream().sorted(Collections.reverseOrder());
+        nums.sort(Comparator.reverseOrder());
+
+        List<Employee> employeeList = Arrays.asList(
+                new Employee("Prashanth", 50000),
+                new Employee("Navin", 70000),
+                new Employee("Uday", 60000)
+        );
+        /*
+        * sort the list of employess on their based on their salary in asending order
+        * */
+        employeeList.stream().sorted(Comparator.comparing(Employee::getSalary).thenComparing(emp -> emp.getName().length() )).collect(Collectors.toList());
+
+        /*sort the list of string based on index of the first occurance of "e" */
+        fruits.stream().sorted(Comparator.comparingInt(e -> e.charAt('c')));
+
+        /* Case insentive order*/
+        Comparator<String> comparator = String.CASE_INSENSITIVE_ORDER;
+        fruits.sort(comparator);
+
+        /*Sorting List of Dates in asending order using comparing()*/
+        List<LocalDate> dates =  Arrays.asList(LocalDate.of(2025,02,23),
+                LocalDate.of(2024, 02, 23),
+                LocalDate.of(2023,02,23));
+        dates.stream().sorted(Comparator.comparing(Function.identity()));
+
+        }
     }
 
 
