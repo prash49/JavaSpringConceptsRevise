@@ -58,8 +58,6 @@ public class StringCompressionAlgo {
         String str = "Prashanthhh";
         String s = String.valueOf(str.charAt(0));
 
-        System.out.println("str :" + str);
-        System.out.println("s :" + s);
         for (int i = 1; i < str.length(); i++) {
             char current = str.charAt(i);
             System.out.println("current char:" + current);
