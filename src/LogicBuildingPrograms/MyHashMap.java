@@ -9,17 +9,17 @@ public class MyHashMap<K, V> {
     }
 
     public void put(K key, V value) {
-        int index = key.hashCode() % SIZE;
+        int index = key.hashCode() & SIZE - 1;
         table[index] = value;
     }
 
     public V get(K key) {
-        int index = key.hashCode() % SIZE;
+        int index = key.hashCode() & SIZE - 1;
         return (V) table[index];
     }
 
     public void delete(K key) {
-        int index = key.hashCode() % SIZE;
+        int index = key.hashCode() & SIZE - 1;
         table[index] = null;
     }
 }
